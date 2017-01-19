@@ -3,6 +3,7 @@ package com.fagnerng.m3v.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -103,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mOnLoginSuccess = new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d(TAG, response.toString());
+                    showProgress(false);
                     saveUser(response);
                 }
             };
@@ -113,8 +115,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mOnLoginFailure = new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, error.getMessage());
-                }
+                    showProgress(false);
+                    Snackbar.make(findViewById(android.R.id.content), R.string.login_failure,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                 }
             };
         }
     }
@@ -171,7 +176,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (mOnLoading) {
             return;
         }
-        mOnLoading = true;
+
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -220,6 +232,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
+        mOnLoading = show;
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
@@ -318,6 +331,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void saveUser(JSONObject user) {
         if (UserManager.getInstance(getApplicationContext()).setUser(user)) {
             goToMainActivity();
+        } else {
+            showProgress(false);
         }
     }
 

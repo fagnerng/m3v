@@ -131,7 +131,7 @@ public class RestClient {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse" + error.getMessage());
+                        Log.d(TAG, "onErrorResponse ", error);
                         if(errorCallback != null){
                             errorCallback.onErrorResponse(error);
                         }

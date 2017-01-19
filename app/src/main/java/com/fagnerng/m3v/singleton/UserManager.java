@@ -25,9 +25,13 @@ public class UserManager {
     public JSONObject getUser() {
         JSONObject user = null;
         if (mPrefs != null && mPrefs.contains(C.Preferences.USER_KEY)) {
-           try {
-               user = new JSONObject(mPrefs.getString(C.Preferences.USER_KEY, null));
+            String userAsString = mPrefs.getString(C.Preferences.USER_KEY, null);
+            try {
+               if (userAsString != null) {
+                   user = new JSONObject(userAsString);
+               }
            } catch (Exception e) {
+                user = null;
                Log.e(TAG, e.getMessage());
            }
         }
