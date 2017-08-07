@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "78870314492",
+    "firebase_url": "https://movimentotroteverde.firebaseio.com",
+    "project_id": "movimentotroteverde",
+    "storage_bucket": "movimentotroteverde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78870314492:android:74b8fae7921f0cb2",
+        "android_client_info": {
+          "package_name": "com.fagnerng.movimentotroteverde"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78870314492-vl9dh2d8n3c3mlh7g8646o9uaohu47mh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fagnerng.movimentotroteverde",
+            "certificate_hash": "bcb1e1d1627029ee934aec5d57a8e549452e28ea"
+          }
+        },
+        {
+          "client_id": "78870314492-dn63uur64i9i0768s75sc427f83dcb01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnymimXxbIqxlgwOC6FHklapKsughdfPg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78870314492-dn63uur64i9i0768s75sc427f83dcb01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
